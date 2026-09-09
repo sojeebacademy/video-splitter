@@ -557,10 +557,12 @@
       if(!state.ffmpegLoaded){
         statusLine.textContent = "প্রথমবার প্রসেসিং ইঞ্জিন লোড হচ্ছে (একটু সময় লাগবে)...";
         state.ffmpeg = new FFmpeg();
-        var baseURL = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm";
+        var coreBaseURL = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm";
+        var ffmpegBaseURL = "https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm";
         await state.ffmpeg.load({
-          coreURL: await toBlobURL(baseURL + "/ffmpeg-core.js", "text/javascript"),
-          wasmURL: await toBlobURL(baseURL + "/ffmpeg-core.wasm", "application/wasm")
+          coreURL: await toBlobURL(coreBaseURL + "/ffmpeg-core.js", "text/javascript"),
+          wasmURL: await toBlobURL(coreBaseURL + "/ffmpeg-core.wasm", "application/wasm"),
+          classWorkerURL: await toBlobURL(ffmpegBaseURL + "/worker.js", "text/javascript")
         });
         state.ffmpegLoaded = true;
       }
